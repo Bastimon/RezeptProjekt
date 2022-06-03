@@ -8,8 +8,9 @@
  * @format
  */
 
-import React from 'react';
+import React, {useState} from 'react';
 import {
+  Button,
   SafeAreaView,
   ScrollView,
   StatusBar,
@@ -26,13 +27,33 @@ import {
   LearnMoreLinks,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
+import {gemuese} from './data/gemuese';
+import {gewuerze} from './data/gewuerze';
+import {kohlenhydrate} from './data/kohlenhydrate';
+import {proteinquelle} from './data/proteine';
+import {sauce} from './data/sauce';
+import {Zutat} from './data/zutat';
+import {RezeptGenerator} from './rezeptGenerator';
+
+const Gerator = new RezeptGenerator();
 
 const App = () => {
+  const [displayText, setText] = useState('');
+
   const isDarkMode = useColorScheme() === 'dark';
 
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
+
+  /**
+   * handleGenerate
+   */
+  function handleGenerate(): void {
+    let recipe = '';
+    recipe = Gerator.generateRezept();
+    setText(recipe);
+  }
 
   return (
     <SafeAreaView style={backgroundStyle}>
@@ -40,12 +61,12 @@ const App = () => {
       <ScrollView
         contentInsetAdjustmentBehavior="automatic"
         style={backgroundStyle}>
-        <Header />
         <View
           style={{
             backgroundColor: isDarkMode ? Colors.black : Colors.white,
           }}>
-          <LearnMoreLinks />
+          <Button title="Test" onPress={handleGenerate}></Button>
+          <Text>{displayText}</Text>
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -70,19 +91,5 @@ const styles = StyleSheet.create({
     fontWeight: '700',
   },
 });
-
-class Zutaten {
-  name: string;
-  zubereitungsarten: string[];
-  menge: number;
-  /**
-   *
-   */
-  constructor(name: string, zubereitungsarten: string[], menge: number) {
-    this.name = name;
-    this.zubereitungsarten = zubereitungsarten;
-    this.menge = menge;
-  }
-}
 
 export default App;
