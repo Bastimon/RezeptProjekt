@@ -6,6 +6,7 @@ import {kohlenhydrate} from './data/kohlenhydrate';
 import {proteinquelle} from './data/proteine';
 import {Sauce} from './data/sauce';
 import {saucen} from './data/saucen';
+import {Zubereitungsart} from './data/zubereitungsart';
 import {Zutat} from './data/zutat';
 export class RezeptGenerator {
   private chosenProtein!: Zutat;
@@ -15,11 +16,13 @@ export class RezeptGenerator {
   private chosenGewürzmischung!: Gewürzmischung;
 
   constructor() {
-    this.init();
+    this.init(false);
   }
 
-  public init(): void {
-    this.chosenProtein = this.getRandomZutat(proteinquelle);
+  public init(isVegan: boolean): void {
+    this.chosenProtein = isVegan
+      ? this.getRandomZutat(proteinquelle.filter(_ => _.vegan))
+      : this.getRandomZutat(proteinquelle);
     this.chosenKohlenhydrat = this.getRandomZutat(kohlenhydrate);
     this.chosenGemüse = this.getRandomZutat(gemuese);
     this.chosenSauce = this.getRandomSauce();
@@ -28,38 +31,24 @@ export class RezeptGenerator {
 
   private generateProteinText(): string {
     let text = '';
-    text =
-      this.chosenProtein.name + ' ' + this.getTextbaustein(this.chosenProtein);
+    text = this.getTextbaustein(this.chosenProtein);
     return text;
   }
 
   private generateHydrateText(): string {
     let text = '';
-    text =
-      this.chosenKohlenhydrat.name +
-      ' ' +
-      this.getTextbaustein(this.chosenKohlenhydrat);
+    text = this.getTextbaustein(this.chosenKohlenhydrat);
     return text;
   }
 
   private generateGemueseText(): string {
     let text = '';
-    text =
-      this.chosenGemüse.name + ' ' + this.getTextbaustein(this.chosenGemüse);
-    return text;
-  }
-
-  private generateGewuerzeText(): string {
-    let randGewuerze = this.getRandomGewürzMischung();
-    let text = '';
-    text = randGewuerze.name;
+    text = this.getTextbaustein(this.chosenGemüse);
     return text;
   }
 
   private generateSauceText(): string {
-    let randSauce = this.getRandomSauce();
-    let text = '';
-    text = randSauce.name + ' ' + randSauce.zubereitung;
+    let text = this.chosenSauce.zubereitung;
     return text;
   }
 
@@ -75,9 +64,9 @@ export class RezeptGenerator {
     return zutaten[Math.floor(Math.random() * zutaten.length)];
   }
 
-  private getTextbaustein(zutat: Zutat): String {
+  private getTextbaustein(zutat: Zutat): string {
     let rand = Math.floor(Math.random() * zutat.zubereitungsarten.length);
-    return zutat.zubereitungsarten[rand];
+    return zutat.zubereitungsarten[rand].text;
   }
 
   public generateTitle(): string {
@@ -120,7 +109,6 @@ export class RezeptGenerator {
       this.generateProteinText() +
       this.generateHydrateText() +
       this.generateGemueseText() +
-      this.generateGewuerzeText() +
       this.generateSauceText();
 
     return tempText;
