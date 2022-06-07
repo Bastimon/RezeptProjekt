@@ -92,9 +92,10 @@ const App = () => {
             circleInActiveColor={'#000000'}
             onValueChange={toggleSwitch}
             value={isEnabled}
-            activeText={'Vegan'}
+            activeText={'🌱'}
+            inActiveText={'🥩'}
           />
-          <Button title="Test" onPress={handleGenerate}></Button>
+          <Button title="🥘" onPress={handleGenerate}></Button>
           <Text style={sectionTitle}>{displayTitle}</Text>
           <Text style={sectionDescription}>{displayZutatenListe}</Text>
           <Text style={sectionDescription}>{displayRecipe}</Text>
