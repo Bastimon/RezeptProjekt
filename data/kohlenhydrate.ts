@@ -8,12 +8,19 @@ const kartoffelnKochen = new Zubereitungsart(
     'In einen großen Topf mit gesalzenem Wasser geben. Das Wasser bei mittlerer bis hoher Hitze zum Kochen bringen und für ca. 20 - 30 Minuten kochen. Wenn sie sich leicht mit einem Messer anstechen lassen, sind sie fertig.',
 );
 const kartoffelnStampfen = new Zubereitungsart(
-  Zubereitungstyp.Kochen,
+  Zubereitungstyp.Stampfen,
   kartoffelnVorbereiten +
-    'In einen großen Topf mit gesalzenem Wasser geben. Das Wasser bei mittlerer bis hoher Hitze zum Kochen bringen und für ca. 20 - 30 Minuten kochen. Wenn sie sich leicht mit einem Messer anstechen lassen, sind sie fertig.',
+    'In einen großen Topf mit gesalzenem Wasser geben. Das Wasser bei mittlerer bis hoher Hitze zum Kochen bringen und für ca. 20 - 30 Minuten kochen. Wenn sie sich leicht mit einem Messer anstechen lassen, sind sie fertig.' +
+    'Anschließend das Wasser abgießen und etwas Milch, Salz und Muskatnuss dazugeben. Mit einem Stampfer das ganze zu Brei verarbeiten.',
 );
 
-const nudelnText = new Zubereitungsart(
+const kartoffelnBraten = new Zubereitungsart(
+  Zubereitungstyp.Braten,
+  'Die Kartoffeln schälen und in ca. 0,5cm dicke Scheiben schneiden. ' +
+    'Die Kartoffelscheiben in einer heißen Pfanne mit Öl etwa 5 Minuten von jeder Seite knusprig braten.',
+);
+
+const nudelnKochen = new Zubereitungsart(
   Zubereitungstyp.Kochen,
   'Die Nudeln in reichlich kochendem Salzwasser nach Packungsangabe kochen.',
 );
@@ -37,8 +44,13 @@ const bulgurKochen = new Zubereitungsart(
 const vegan = true;
 
 export const kohlenhydrate: Zutat[] = [
-  new Zutat('Kartoffeln', [kartoffelnKochen], 400, vegan),
+  new Zutat(
+    'Kartoffeln',
+    [kartoffelnKochen, kartoffelnStampfen, kartoffelnBraten],
+    400,
+    vegan,
+  ),
   new Zutat('Reis', [reisKochen], 250, vegan),
-  new Zutat('Nudeln', [nudelnText], 300, vegan),
+  new Zutat('Nudeln', [nudelnKochen], 300, vegan),
   new Zutat('Bulgur', [bulgurKochen], 300, vegan),
 ];

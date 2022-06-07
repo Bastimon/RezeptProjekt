@@ -28,6 +28,7 @@ import {CSSProperties} from 'react';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 
 import {RezeptGenerator} from './rezeptGenerator';
+import {foodEmojis} from './data/foodEmojis';
 
 const Generator = new RezeptGenerator();
 
@@ -68,8 +69,10 @@ const App = () => {
     setTitle(title);
     setZutatenListe(zutatenListe);
     setRecipe(recipe);
+    setButtonEmoji(foodEmojis[Math.floor(Math.random() * foodEmojis.length)]);
   }
   const [isEnabled, setIsEnabled] = useState(false);
+  const [buttonEmoji, setButtonEmoji] = useState('🥙');
   const toggleSwitch = () => {
     setIsEnabled(previousState => !previousState);
     console.log('ToggleSwitch: ' + isEnabled);
@@ -95,7 +98,7 @@ const App = () => {
             activeText={'🌱'}
             inActiveText={'🥩'}
           />
-          <Button title="🥘" onPress={handleGenerate}></Button>
+          <Button title={buttonEmoji} onPress={handleGenerate}></Button>
           <Text style={sectionTitle}>{displayTitle}</Text>
           <Text style={sectionDescription}>{displayZutatenListe}</Text>
           <Text style={sectionDescription}>{displayRecipe}</Text>

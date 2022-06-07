@@ -1,4 +1,5 @@
 import {types} from '@babel/core';
+import {Protein} from './protein';
 import {Zubereitungsart, Zubereitungstyp} from './zubereitungsart';
 import {Zutat} from './zutat';
 
@@ -16,7 +17,7 @@ const linsenVorbereiten =
 const linsenKochen = new Zubereitungsart(
   Zubereitungstyp.Kochen,
   linsenVorbereiten +
-    ' Die Linsen 15 Minuten in kochendem Wasser garen. Alternativ können die Linsen auch in der Sauce mitgekocht werden. Das dauert länger bis die Linsen weich sind.',
+    ' Die Linsen 15 Minuten in kochendem Wasser garen. Alternativ können die Linsen auch in der Sauce mitgekocht werden. Das dauert jedoch länger bis die Linsen weich sind.',
 );
 
 const tofuVorbereiten =
@@ -39,14 +40,34 @@ const tofuPanieren = new Zubereitungsart(
     'Den Tofu in Scheiben schneiden. In einer Schüssel Stärke mit etwas Salz vermischen. Die Tofu Scheiben hinlegen und von allen Seiten mit der Stärke bedecken. Anschließend den panierten Tofu in einer heißen Pfanne mit Öl ca. 10 Minuten von allen Seiten knusprig braten.',
 );
 
+const sojageschnezeltesBraten = new Zubereitungsart(
+  Zubereitungstyp.Braten,
+  'Das getrocknete Geschnetzelte mit kochendem Wasser übergißene und etwa 5 Minuten stehen lassen. ' +
+    'Die Gewürze für das Geschnetzelte in einer Schüssel vermischen. Nachdem das Geschnetzelte aufgequollen ist, das Wasser ' +
+    'abgießen und das Geschnetzelte auspressen. Das funktioniert am besten mit einer Kartoffelpresse.' +
+    'Die ausgepressten Schnetzel mit der Gewürzpaste vermischen. ',
+);
+
 const vegan = true;
 const nichtVegan = false;
 
-export const proteinquelle: Zutat[] = [
-  new Zutat('rote Linsen', [linsenKochen], 200, vegan),
-  new Zutat('Tofu', [tofuBacken, tofuBraten, tofuPanieren], 400, vegan),
-  new Zutat('Schweinefleisch', [fleischBraten], 250, nichtVegan),
-  // new Zutat('Hünchen', [fleischBraten], 250),
-  // new Zutat('Rind', [fleischBraten], 250),
+export const proteinquelle: Protein[] = [
+  new Protein('rote Linsen', [linsenKochen], 200, vegan),
+  new Protein('Tofu', [tofuBacken, tofuBraten, tofuPanieren], 400, vegan),
+  new Protein('Sojageschnezeltes', [sojageschnezeltesBraten], 100, vegan, [
+    '2TL Knoblauchpulver',
+    '1TL Zwiebelpulver',
+    'ein paar Tropfen Liquidsmoke',
+    '1TL Kreuzkümmel',
+    '2TL Sojasauce',
+    '1TL Ahornsirup',
+    '1TL Gemüsebrühe oder Glutamat',
+    '1/2TL Senf',
+    '1TL Tomatenmark',
+    '3EL Wasser',
+  ]),
+  new Protein('Schweinefleisch', [fleischBraten], 250, nichtVegan),
+  new Protein('Hünchen', [fleischBraten], 250, nichtVegan),
+  new Protein('Rind', [fleischBraten], 250, nichtVegan),
   // new Zutat('Erbsen', ['braten', 'kochen', 'stampfen'], 250),
 ];
