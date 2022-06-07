@@ -14,45 +14,57 @@ import {
   SafeAreaView,
   ScrollView,
   StatusBar,
+  StyleProp,
   StyleSheet,
   Text,
+  TextStyle,
   useColorScheme,
   View,
 } from 'react-native';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-import {gemuese} from './data/gemuese';
-import {gewuerze} from './data/gewuerze';
-import {kohlenhydrate} from './data/kohlenhydrate';
-import {proteinquelle} from './data/proteine';
-import {sauce} from './data/sauce';
-import {Zutat} from './data/zutat';
+import {CSSProperties} from 'react';
+import {Colors} from 'react-native/Libraries/NewAppScreen';
+
 import {RezeptGenerator} from './rezeptGenerator';
 
-const Gerator = new RezeptGenerator();
+const Generator = new RezeptGenerator();
 
 const App = () => {
-  const [displayText, setText] = useState('');
+  const [displayRecipe, setRecipe] = useState('');
+  const [displayTitle, setTitle] = useState('');
+  const [displayZutatenListe, setZutatenListe] = useState('');
 
   const isDarkMode = useColorScheme() === 'dark';
 
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
+  const sectionTitle: StyleProp<TextStyle> = {
+    fontSize: 24,
+    fontWeight: '600',
+  };
+
+  const sectionDescription: StyleProp<TextStyle> = {
+    marginTop: 8,
+    fontSize: 18,
+    fontWeight: '400',
+  };
+
+  const myStyles: CSSProperties = {
+    position: 'absolute',
+  };
 
   /**
    * handleGenerate
    */
   function handleGenerate(): void {
-    let recipe = '';
-    recipe = Gerator.generateRezept();
-    setText(recipe);
+    Generator.init();
+    let title = Generator.generateTitle();
+    let zutatenListe = Generator.generateZutatenliste();
+    let recipe = Generator.generateRezept();
+    setTitle(title);
+    setZutatenListe(zutatenListe);
+    setRecipe(recipe);
   }
 
   return (
@@ -66,30 +78,13 @@ const App = () => {
             backgroundColor: isDarkMode ? Colors.black : Colors.white,
           }}>
           <Button title="Test" onPress={handleGenerate}></Button>
-          <Text>{displayText}</Text>
+          <Text style={sectionTitle}>{displayTitle}</Text>
+          <Text style={sectionDescription}>{displayZutatenListe}</Text>
+          <Text style={sectionDescription}>{displayRecipe}</Text>
         </View>
       </ScrollView>
     </SafeAreaView>
   );
 };
-
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
 
 export default App;

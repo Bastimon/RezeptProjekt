@@ -1,6 +1,18 @@
-import {Zutat} from './zutat';
+export class Sauce {
+  name: string;
+  zutaten: string[];
+  zubereitung: string;
+  mitGewürzen: boolean;
 
-export const sauce: Zutat[] = [
-  new Zutat('Tomatensauce', ['passierte tomaten'], 250),
-  new Zutat('Sahnesauce', ['Sahen'], 250),
-];
+  constructor(
+    name: string,
+    zutaten: string[],
+    zubereitung: string,
+    mitGewürzen: boolean,
+  ) {
+    (this.name = name),
+      (this.zutaten = zutaten),
+      (this.zubereitung = zubereitung),
+      (this.mitGewürzen = mitGewürzen);
+  }
+}
