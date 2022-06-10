@@ -9,6 +9,8 @@
  */
 
 import React, { useState } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 import {
   Button,
   SafeAreaView,
@@ -29,10 +31,25 @@ import { Colors } from 'react-native/Libraries/NewAppScreen';
 
 import { RezeptGenerator } from './rezeptGenerator';
 import { foodEmojis } from './data/foodEmojis';
+import { proteinquelle, setProteinquelle } from './data/proteine';
+import { Protein } from './data/protein';
+import { Zubereitungsart, Zubereitungstyp } from './data/zubereitungsart';
 
 const Generator = new RezeptGenerator();
 
+const storeData = async (key: string, value: any) => {
+  try {
+    await AsyncStorage.setItem(key, JSON.stringify(value))
+    setProteinquelle(value);
+  } catch (e) {
+    // saving error
+  }
+}
+
+
 const App = () => {
+  storeData("proteine", proteinquelle);
+
   let isVegan = false;
   const [displayRecipe, setRecipe] = useState('');
   const [displayTitle, setTitle] = useState('');
@@ -62,6 +79,17 @@ const App = () => {
    * handleGenerate
    */
   function handleGenerate(): void {
+    console.log(proteinquelle)
+
+    let newProt = new Protein(proteinquelle.length, 'test', [new Zubereitungsart(Zubereitungstyp.Braten, 'test')], 200, true);
+    let newQuelle: Protein[] = []
+    proteinquelle.forEach(element => newQuelle.push(element))
+    newQuelle.push(newProt);
+    setProteinquelle(newQuelle)
+
+    storeData("proteine", proteinquelle)
+    console.log(proteinquelle);
+
     Generator.init(isEnabled);
     let title = Generator.generateTitle();
     let zutatenListe = Generator.generateZutatenliste();
