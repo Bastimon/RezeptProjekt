@@ -40,15 +40,27 @@ const Generator = new RezeptGenerator();
 const storeData = async (key: string, value: any) => {
   try {
     await AsyncStorage.setItem(key, JSON.stringify(value))
-    setProteinquelle(value);
   } catch (e) {
     // saving error
   }
 }
+const getData = async (key: string) => {
+  try {
+    const value = await AsyncStorage.getItem(key)
+
+    if (value !== null) {
+      setProteinquelle(JSON.parse(value) as Protein[])
+    }
+  } catch (e) {
+    // error reading value
+  }
+}
 
 
+const PROTEIN = "proteine";
 const App = () => {
-  storeData("proteine", proteinquelle);
+
+  getData(PROTEIN);
 
   let isVegan = false;
   const [displayRecipe, setRecipe] = useState('');
@@ -87,7 +99,7 @@ const App = () => {
     newQuelle.push(newProt);
     setProteinquelle(newQuelle)
 
-    storeData("proteine", proteinquelle)
+    storeData(PROTEIN, proteinquelle)
     console.log(proteinquelle);
 
     Generator.init(isEnabled);
