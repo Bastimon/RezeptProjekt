@@ -8,7 +8,7 @@
  * @format
  */
 
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
   Button,
   SafeAreaView,
@@ -22,13 +22,13 @@ import {
   View,
 } from 'react-native';
 
-import {Switch} from 'react-native-switch';
+import { Switch } from 'react-native-switch';
 
-import {CSSProperties} from 'react';
-import {Colors} from 'react-native/Libraries/NewAppScreen';
+import { CSSProperties } from 'react';
+import { Colors } from 'react-native/Libraries/NewAppScreen';
 
-import {RezeptGenerator} from './rezeptGenerator';
-import {foodEmojis} from './data/foodEmojis';
+import { RezeptGenerator } from './rezeptGenerator';
+import { foodEmojis } from './data/foodEmojis';
 
 const Generator = new RezeptGenerator();
 
@@ -84,10 +84,7 @@ const App = () => {
       <ScrollView
         contentInsetAdjustmentBehavior="automatic"
         style={backgroundStyle}>
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
+        <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
           <Switch
             backgroundActive={'green'}
             backgroundInactive={'gray'}
@@ -98,6 +95,12 @@ const App = () => {
             activeText={'🌱'}
             inActiveText={'🥩'}
           />
+        </View>
+        <View
+          style={{
+            backgroundColor: isDarkMode ? Colors.black : Colors.white,
+          }}>
+
           <Button title={buttonEmoji} onPress={handleGenerate}></Button>
           <Text style={sectionTitle}>{displayTitle}</Text>
           <Text style={sectionDescription}>{displayZutatenListe}</Text>

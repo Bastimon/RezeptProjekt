@@ -52,9 +52,9 @@ const vegan = true;
 const nichtVegan = false;
 
 export const proteinquelle: Protein[] = [
-  new Protein('rote Linsen', [linsenKochen], 200, vegan),
-  new Protein('Tofu', [tofuBacken, tofuBraten, tofuPanieren], 400, vegan),
-  new Protein('Sojageschnezeltes', [sojageschnezeltesBraten], 100, vegan, [
+  new Protein(0, 'rote Linsen', [linsenKochen], 200, vegan),
+  new Protein(1, 'Tofu', [tofuBacken, tofuBraten, tofuPanieren], 400, vegan),
+  new Protein(2, 'Sojageschnezeltes', [sojageschnezeltesBraten], 100, vegan, [
     '2TL Knoblauchpulver',
     '1TL Zwiebelpulver',
     'ein paar Tropfen Liquidsmoke',
@@ -66,8 +66,8 @@ export const proteinquelle: Protein[] = [
     '1TL Tomatenmark',
     '3EL Wasser',
   ]),
-  new Protein('Schweinefleisch', [fleischBraten], 250, nichtVegan),
-  new Protein('Hünchen', [fleischBraten], 250, nichtVegan),
-  new Protein('Rind', [fleischBraten], 250, nichtVegan),
+  new Protein(3, 'Schweinefleisch', [fleischBraten], 250, nichtVegan),
+  new Protein(4, 'Hünchen', [fleischBraten], 250, nichtVegan),
+  new Protein(5, 'Rind', [fleischBraten], 250, nichtVegan),
   // new Zutat('Erbsen', ['braten', 'kochen', 'stampfen'], 250),
 ];

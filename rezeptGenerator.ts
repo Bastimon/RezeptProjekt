@@ -1,13 +1,14 @@
-import {TouchableHighlightBase} from 'react-native';
-import {gemuese} from './data/gemuese';
-import {gewuerze} from './data/gewuerze';
-import {Gewürzmischung} from './data/gewürzmischung';
-import {kohlenhydrate} from './data/kohlenhydrate';
-import {proteinquelle} from './data/proteine';
-import {Sauce} from './data/sauce';
-import {saucen} from './data/saucen';
-import {Zubereitungsart} from './data/zubereitungsart';
-import {Zutat} from './data/zutat';
+import { TouchableHighlightBase } from 'react-native';
+import { gemuese } from './data/gemuese';
+import { gewuerze } from './data/gewuerze';
+import { Gewürzmischung } from './data/gewürzmischung';
+import { kohlenhydrate } from './data/kohlenhydrate';
+import { proteinquelle } from './data/proteine';
+import { Sauce } from './data/sauce';
+import { saucen } from './data/saucen';
+import { Zubereitungsart } from './data/zubereitungsart';
+import { Zutat } from './data/zutat';
+
 export class RezeptGenerator {
   private chosenProtein!: Zutat;
   private chosenKohlenhydrat!: Zutat;
